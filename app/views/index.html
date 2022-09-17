@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+         toastr.options = {
+            "debug": false,
+            "positionClass": "toast-top-right",
+            "onclick": null,
+            "fadeIn": 300,
+            "fadeOut": 1000,
+            "timeOut": 5000,
+            "extendedTimeOut": 1000
+        }
+    </script>
+
+    <title>Test Python Developer - Zulfa Fajrul Falah</title>
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+          <div class="col mt-5">
+            <h1>Get Data From jambi.antaranews.com</h1>
+            <form action="" method="post">
+                <button type="submit" class="btn btn-primary" style="padding-left: 30px;padding-right: 30px;">Get Data</button>
+            </form>
+            <div class="row mt-3">
+                <div class="col-xs-12">
+                    <h4 class="smaller">
+                        Result
+                    </h4>
+                    <pre style="height: 750px; border: 1px solid #a5a5a5;" id="json"></pre>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<script>
+    {% if data_berita %}
+    var data_berita =  JSON.parse({{data_berita | tojson | safe}});
+    document.getElementById("json").innerHTML = JSON.stringify(data_berita, undefined, 2);
+    toastr.success('Data Berhasil diinput ke Database', 'Get Data Success')
+    {% endif %}
+</script>

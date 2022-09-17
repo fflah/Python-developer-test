@@ -1,0 +1,34 @@
+version: '3.9'
+services:
+  postgres:
+    container_name: postgres
+    restart: always
+    image: postgres
+    volumes:
+      - ./postgres-data/postgres:/var/lib/postgresql/data
+    ports:
+      - "5433:5433"
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}  
+    networks:
+      - flask_network
+  app:
+    container_name: app_flask
+    build: .
+    ports:
+      - 5000:5000
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    depends_on:
+    - postgres
+    entrypoint: /app/entrypoint.sh
+    networks:
+      - flask_network
+
+networks:
+  flask_network:
+    name: flask_network
